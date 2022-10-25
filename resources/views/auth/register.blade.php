@@ -27,6 +27,24 @@
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
+            <!-- City -->
+            <div class="mt-4">
+                <x-input-label for="city" :value="__('City')" />
+
+                <x-text-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required />
+
+                <x-input-error :messages="$errors->get('city')" class="mt-2" />
+            </div>
+
+            <!-- Phone -->
+            <div class="mt-4">
+                <x-input-label for="phone" :value="__('Phone')" />
+
+                <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" />
+
+                <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+            </div>
+
             <!-- Password -->
             <div class="mt-4">
                 <x-input-label for="password" :value="__('Password')" />
