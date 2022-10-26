@@ -24,4 +24,8 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+// Users
 Route::get('/users', [UserController::class, 'index'])->name('users');
+Route::get('/user/{user}', [UserController::class, 'show'])->name('users.show');
+Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/user/{user}', [UserController::class, 'update'])->name('users.update');
