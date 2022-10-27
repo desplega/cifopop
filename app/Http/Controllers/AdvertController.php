@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Advert;
+use Illuminate\Support\Facades\Storage;
 
 class AdvertController extends Controller
 {
@@ -13,7 +15,9 @@ class AdvertController extends Controller
      */
     public function index()
     {
-        //
+        $adverts = Advert::orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('adverts.list', ['adverts' => $adverts]);
     }
 
     /**
@@ -23,7 +27,7 @@ class AdvertController extends Controller
      */
     public function create()
     {
-        //
+        return view('adverts.create');
     }
 
     /**
@@ -34,62 +38,128 @@ class AdvertController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only(['title', 'description', 'price']);
+        $data['image'] = null;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store(config('filesystems.advertImagesPath'));
+            $data['image'] = pathinfo($path, PATHINFO_BASENAME);
+        }
+
+        $advert = Advert::create($data);
+
+        return redirect()->route('advert.show', $advert->id)
+            ->with('success', __('New advert created'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $advert
+     * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function show($advert)
+    public function show(Advert $advert)
     {
-        //
+        return view('adverts.show', ['advert' => $advert]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $advert
+     * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function edit($advert)
+    public function edit(Advert $advert)
     {
-        //
+        return view('adverts.edit', ['advert' => $advert]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $advert
+     * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $advert)
+    public function update(Request $request, Advert $advert)
     {
-        //
+        $data = $request->only('title', 'description', 'price');
+
+        if ($request->hasFile('image')) {
+            if ($advert->image)
+                $to_be_deleted = config('filesystems.advertImagesPath') . '/' . $advert->image;
+            $new_image = $request->file('image')->store(config('filesystems.advertImagesPath'));
+            $data['image'] = pathinfo($new_image, PATHINFO_BASENAME);
+        }
+
+        if ($advert->update($data)) {
+            if (isset($to_be_deleted))
+                Storage::delete($to_be_deleted);
+        } else {
+            if (isset($new_image))
+                Storage::delete($new_image);
+        }
+
+        return back()
+            ->with('success', __('Advert no. :advert has been successfully updated.', ['advert' => $advert->id]));
     }
 
     /**
      * Confirmation for deletion.
      *
-     * @param  int  $advert
+     * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function delete($advert)
+    public function delete(Advert $advert)
     {
-        //
+        return view('advert.delete', ['advert' => $advert]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $advert
+     * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function destroy($advert)
+    public function destroy(Advert $advert)
     {
-        //
+        $advert->delete();
+
+        return back()
+            ->with('success', __('Advert no. :advert has been deleted.', ['advert', $advert->id]));
+    }
+
+    /**
+     * Restore a deleted advert
+     * 
+     * @param int $advert
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Request $request, int $id)
+    {
+        $advert = Advert::withTrashed()->findOrFail($id);
+
+        $advert->restore();
+
+        return back()
+            ->with('success', __('Advert no. :advert has been restored.', ['advert' => $advert->id]));
+    }
+
+    /**
+     * Permanent delete of adverts
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function purge(Request $request)
+    {
+        $advert = Advert::withTrashed()->findOrFail($request->input('advert_id'));
+
+        if ($advert->forceDelete() && $advert->image) {
+            $path = config('filesystems.advertImagesPath') . '/' . $advert->image;
+            Storage::delete($path);
+        }
+
+        return redirect('advert.list')
+            ->with('success', 'Advert no. :advert has been permanently deleted.', ['advert' => $advert->id]);
     }
 }

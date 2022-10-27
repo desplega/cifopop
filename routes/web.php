@@ -19,17 +19,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 require __DIR__.'/auth.php';
 
 // Users
-Route::get('/users', [UserController::class, 'index'])->name('users');
-Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
-Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{user}', [UserController::class, 'update'])->name('user.update');
+});
 
 // Advertisements
 Route::resource('/advert', AdvertController::class);

@@ -73,4 +73,10 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    /**
+     * Default path for advertisements images
+     */
+
+     'advertImagesPath' => 'images/adverts',
+
 ];

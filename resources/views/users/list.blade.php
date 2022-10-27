@@ -10,7 +10,6 @@
             {{-- Content --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    {{-- Content --}}
                     <table class="min-w-full leading-normal">
                         <thead>
                             <tr>
@@ -71,12 +70,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Back
                 </div>
             </div>
         </div>
