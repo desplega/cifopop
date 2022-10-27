@@ -10,30 +10,34 @@
             {{-- Content --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="mb-2">
+                    <div class="pb-4 border-b-2 border-gray-300">
                         <span class="text-xl font-bold">{{ $user->name }}</span>
                         <a class="mx-1" href="{{ route('users.edit', $user->id) }}">
                             <img class="inline" height="20" width="20"
                                 src="{{ asset('images/buttons/edit.png') }}" alt="Editar" title="Editar">
                         </a>
                     </div>
-                    <div class="mb-2">
-                        <span class="font-bold">{{ __('Email') }}:</span>
-                        <span>{{ $user->email }}</span>
+                    <div class="py-4 border-b-2 border-gray-300">
+                        <span class="text-gray-700 font-bold mb-2">{{ __('Email') }}:</span>
+                        <span class="text-gray-700">{{ $user->email }}</span>
                     </div>
-                    <div class="mb-2">
-                        <span class="font-bold">{{ __('City') }}:</span>
-                        <span>{{ $user->city }}</span>
+                    <div class="py-4 border-b-2 border-gray-300">
+                        <span class="text-gray-700 font-bold mb-2">{{ __('City') }}:</span>
+                        <span class="text-gray-700">{{ $user->city }}</span>
                     </div>
-                    <div>
-                        <span class="font-bold">{{ __('Phone') }}:</span>
-                        <span>{{ $user->phone }}</span>
+                    <div class="py-4 border-b-2 border-gray-300">
+                        <span class="text-gray-700 font-bold mb-2">{{ __('Phone') }}:</span>
+                        <span class="text-gray-700">{{ $user->phone }}</span>
                     </div>
-                    <div>
-                        <span class="font-bold">{{ __('Roles') }}:</span>
-                        @foreach ($user->roles->pluck('role') as $role)
-                            <x-label-tag color="{{ $role == 'Blocked' ? 'red' : 'blue' }}" :text="$role" />
-                        @endforeach
+                    <div class="py-4 border-b-2 border-gray-300">
+                        <span class="text-gray-700 font-bold mb-2">{{ __('Roles') }}:</span>
+                        @if ($user->roles->isNotEmpty())
+                            @foreach ($user->roles->pluck('role') as $role)
+                                <x-label-tag color="{{ $role == 'Blocked' ? 'red' : 'blue' }}" :text="$role" />
+                            @endforeach
+                        @else
+                            {{ __('No roles') }}
+                        @endif
                     </div>
                 </div>
             </div>

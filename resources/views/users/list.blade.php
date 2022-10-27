@@ -46,10 +46,14 @@
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $user->phone }}
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        @foreach ($user->roles->pluck('role') as $role)
-                                            <x-label-tag color="{{ $role == 'Blocked' ? 'red' : 'blue' }}"
-                                                :text="$role" />
-                                        @endforeach
+                                        @if ($user->roles->isNotEmpty())
+                                            @foreach ($user->roles->pluck('role') as $role)
+                                                <x-label-tag color="{{ $role == 'Blocked' ? 'red' : 'blue' }}"
+                                                    :text="$role" />
+                                            @endforeach
+                                        @else
+                                            {{ __('No roles') }}
+                                        @endif
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <a class="inline-block mx-1" href="{{ route('users.show', $user->id) }}">

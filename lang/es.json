@@ -62,5 +62,6 @@
   "User details": "Detalles de usuario",
   "Edit user": "Edición del usuario",
   "Please check the value of the following fields:": "Por favor, comprueba el valor de los campos siguientes:",
-  "User has been updated.": "El usuario se ha actualizado correctamente."
+  "User has been updated.": "El usuario se ha actualizado correctamente.",
+  "No roles": "Sin roles"
 }

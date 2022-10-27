@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
@@ -36,6 +37,22 @@ class UserController extends Controller
         $data = $request->only(['name', 'email', 'city', 'phone']);
 
         $user->update($data);
+
+        // Attach/Detach roles to the user
+        $roles = Role::all()->pluck('role');
+        foreach ($roles as $role) {
+            $id = Role::where('role', $role)->first()->id;
+            $role_field = strtolower($role);
+            if ($request->$role_field) {
+                if (!$user->hasRole($role)) {
+                    $user->roles()->attach($id);
+                }
+            } else {
+                if ($user->hasRole($role)) {
+                    $user->roles()->detach($id);
+                }
+            }
+        }
 
         return back()->with('success', __("User has been updated."));
     }
