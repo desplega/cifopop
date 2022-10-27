@@ -12,17 +12,17 @@ class UserController extends Controller
     {
         $users = User::all();
 
-        return view('users.list', ['users' => $users]);
+        return view('user.list', ['users' => $users]);
     }
 
     public function show(User $user)
     {
-        return view('users.show', ['user' => $user]);
+        return view('user.show', ['user' => $user]);
     }
 
     public function edit(Request $request, User $user)
     {
-        return view('users.edit', ['user' => $user]);
+        return view('user.edit', ['user' => $user]);
     }
 
     public function update(Request $request, User $user)

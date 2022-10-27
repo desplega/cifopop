@@ -12,7 +12,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="pb-4 border-b-2 border-gray-300">
                         <span class="text-xl font-bold">{{ $user->name }}</span>
-                        <a class="mx-1" href="{{ route('users.edit', $user->id) }}">
+                        <a class="mx-1" href="{{ route('user.edit', $user->id) }}">
                             <img class="inline" height="20" width="20"
                                 src="{{ asset('images/buttons/edit.png') }}" alt="Editar" title="Editar">
                         </a>

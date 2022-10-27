@@ -56,12 +56,12 @@
                                         @endif
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                        <a class="inline-block mx-1" href="{{ route('users.show', $user->id) }}">
+                                        <a class="inline-block mx-1" href="{{ route('user.show', $user->id) }}">
                                             <img height="20" width="20"
                                                 src="{{ asset('images/buttons/show.png') }}" alt="Ver detaller"
                                                 title="Ver detalles">
                                         </a>
-                                        <a class="inline-block mx-1" href="{{ route('users.edit', $user->id) }}">
+                                        <a class="inline-block mx-1" href="{{ route('user.edit', $user->id) }}">
                                             <img height="20" width="20"
                                                 src="{{ asset('images/buttons/edit.png') }}" alt="Editar"
                                                 title="Editar">
