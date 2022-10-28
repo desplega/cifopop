@@ -1,9 +1,9 @@
 <div class="flex justify-between">
     <div class="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
-        Pepito De los Palotes
+        {{ $advert->user->name }}
     </div>
     <div class="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
-        Blanes
+        {{ $advert->user->city }}
     </div>
 </div>
 <img class="m-auto h-60"

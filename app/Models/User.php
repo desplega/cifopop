@@ -73,4 +73,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return false;
     }
+
+    public function adverts()
+    {
+        return $this->hasMany(Advert::class);
+    }
 }

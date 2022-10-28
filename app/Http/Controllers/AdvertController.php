@@ -40,6 +40,7 @@ class AdvertController extends Controller
     {
         $data = $request->only(['title', 'description', 'price']);
         $data['image'] = null;
+        $data['user_id'] = $request->user()->id;
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store(config('filesystems.advertImagesPath'));

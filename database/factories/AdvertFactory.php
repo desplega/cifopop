@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Advert;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Advert>
@@ -25,6 +26,7 @@ class AdvertFactory extends Factory
             'description' => $this->faker->text(),
             'price' => $this->faker->randomFloat(2, 5, 250),
             'image' => 'advert-sample.jpg',
+            'user_id' => User::all()->first()?->id,
         ];
     }
 }

@@ -2,7 +2,7 @@
     @foreach ($adverts as $advert)
         <div class="w-full lg:w-1/2 p-3">
             <div class="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-                <img class="m-auto h-60"
+                <img class="m-auto h-60 mt-4"
                     src="{{ $advert->image ? asset('storage/' . config('filesystems.advertImagesPath')) . '/' . $advert->image : asset('images/adverts/default.jpg') }}"
                     alt="{{ __('Advert no. :advert', ['advert' => $advert->id]) }}" title="{{ __('Advert no. :advert', ['advert' => $advert->id]) }}">
                 <div class="p-5">
