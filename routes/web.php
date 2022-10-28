@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdvertController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 // Advertisements
 Route::resource('/advert', AdvertController::class);
 Route::get('/advert/delete', [AdvertController::class, 'delete'])->name('advert.delete');
+
+// Home
+Route::get('/home', [HomeController::class, 'index'])->name('home');
