@@ -1,12 +1,24 @@
-<img class="block h-auto w-full lg:w-48 flex-none bg-cover"
-    src="{{ $advert->image ? asset('storage/' . config('filesystems.advertImagesPath')) . '/' . $advert->image : asset('images/adverts/default.jpg') }}">
-<div class="bg-white p-4">
-    <div class="text-black font-bold text-xl mb-2 leading-tight">{{ $advert->title }}</div>
-    <div class="text-grey-darker text-base  ">
-        {{ $advert->description }}</div>
-    {{-- <p class="text-grey-darker text-base">{{ __('Advert no.: ') . $advert->id }}</p> --}}
-    <div class="block my-2 text-3xl text-bold text-orange-700">{{ str_replace('.', ',', $advert->price) }} €
+<div class="flex justify-between">
+    <div class="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
+        Pepito De los Palotes
     </div>
-    <a class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-        href="#" role="button">{{ __('Make offer') }}</a>
+    <div class="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
+        Blanes
+    </div>
+</div>
+<img class="m-auto h-60"
+    src="{{ $advert->image ? asset('storage/' . config('filesystems.advertImagesPath')) . '/' . $advert->image : asset('images/adverts/default.jpg') }}"
+    alt="{{ __('Advert no. :advert', ['advert' => $advert->id]) }}"
+    title="{{ __('Advert no. :advert', ['advert' => $advert->id]) }}">
+<div class="p-5">
+    <div class="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
+        {{ $advert->title }}
+    </div>
+    <p class="font-normal text-gray-700 mb-3 dark:text-gray-400">
+        {{ $advert->description }}</p>
+    <div class="text-4xl text-gray-600 text-center font-bold my-4">{{ str_replace('.', ',', $advert->price) }} €
+    </div>
+    <a href="#" class="flex items-center justify-end mt-4">
+        <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
+    </a>
 </div>

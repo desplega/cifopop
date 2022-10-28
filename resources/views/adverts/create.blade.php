@@ -13,36 +13,49 @@
                     <form method="POST" action="{{ route('advert.store') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="mb-4">
-                            <label for="title"
-                                class="block text-gray-700 text-sm font-bold mb-2">{{ __('Title') }}</label>
-                            <input name="title" value="{{ old('title') }}" type="text"
-                                class="rounded py-2 px-3 text-gray-700" id="title" placeholder="{{ __('Title') }}"
-                                maxlength="255" required="required">
+                        <!-- Title -->
+                        <div>
+                            <x-input-label for="title" :value="__('Title')" />
+
+                            <x-text-input id="title" class="block mt-1 w-full" type="text" name="title"
+                                :value="old('title')" required autofocus />
+
+                            <x-input-error :messages="$errors->get('title')" class="mt-2" />
                         </div>
-                        <div class="mb-4">
-                            <label for="description"
-                                class="block text-gray-700 text-sm font-bold mb-2">{{ __('Description') }}</label>
-                            <textarea name="description" type="text" class="rounded py-2 px-3 text-gray-700" id="description"
-                                placeholder="{{ __('Description') }}" required="required">{{ old('description') }}</textarea>
+                        <!-- Description -->
+                        <div class="mt-4">
+                            <x-input-label for="description" :value="__('Description')" />
+
+                            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description"
+                                :value="old('description')" required />
+
+                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
-                        <div class="mb-4">
-                            <label for="price"
-                                class="block text-gray-700 text-sm font-bold mb-2">{{ __('Price') }}</label>
-                            <input name="price" value="{{ old('price') }}" type="number"
-                                class="rounded py-2 px-3 text-gray-700" id="price" min="0" step="0.01"
-                                placeholder="{{ __('Price') }}" required="required">
+                        <!-- Price -->
+                        <div class="mt-4">
+                            <x-input-label for="price" :value="__('Price')" />
+
+                            <x-text-input id="price" class="block mt-1 w-full" type="number" name="price"
+                                :value="old('price')" min="0" step="0.01" required />
+
+                            <x-input-error :messages="$errors->get('price')" class="mt-2" />
                         </div>
-                        <div class="mb-4">
-                            <label for="image" class="block text-gray-700 text-sm font-bold mb-2">{{ __('Image') }}</label>
-                            <input name="image" type="file" class="" id="image">
+                        <!-- Image -->
+                        <div class="mt-4">
+                            <x-input-label for="image" :value="__('Image')" />
+
+                            <input class="mt-1 w-full" name="image" type="file" class="" id="image">
+                            <x-input-error :messages="$errors->get('image')" class="mt-2" />
                         </div>
 
-                        <div>
-                            <button type="submit"
-                                class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Guardar</button>
-                            <button type="reset"
-                                class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Restablecer</button>
+                        <!-- Form buttons -->
+                        <div class="flex items-center justify-end mt-4">
+                            <x-primary-button type="reset" class="ml-3">
+                                {{ __('Reset') }}
+                            </x-primary-button>
+                            <x-primary-button class="ml-3">
+                                {{ __('Save') }}
+                            </x-primary-button>
                         </div>
                     </form>
                 </div>

@@ -14,52 +14,79 @@
                         @csrf
                         @method('PUT')
 
-                        <div class="mb-4">
-                            <label for="name"
-                                class="block text-gray-700 text-sm font-bold mb-2">{{ __('Name') }}</label>
-                            <input name="name" value="{{ old('name', $user->name) }}" type="text"
-                                class="rounded py-2 px-3 text-gray-700" id="name" placeholder="{{ __('Name') }}"
-                                maxlength="255" required="required">
-                        </div>
-                        <div class="mb-4">
-                            <label for="email"
-                                class="block text-gray-700 text-sm font-bold mb-2">{{ __('Email') }}</label>
-                            <input name="email" value="{{ old('email', $user->email) }}" type="email"
-                                class="rounded py-2 px-3 text-gray-700" id="email"
-                                placeholder="{{ __('Email') }}" maxlength="255" required="required">
-                        </div>
-                        <div class="mb-4">
-                            <label for="city"
-                                class="block text-gray-700 text-sm font-bold mb-2">{{ __('City') }}</label>
-                            <input name="city" value="{{ old('city', $user->city) }}" type="text"
-                                class="rounded py-2 px-3 text-gray-700" id="city"
-                                placeholder="{{ __('City') }}" maxlength="255" required="required">
-                        </div>
-                        <div class="mb-4">
-                            <label for="phone"
-                                class="block text-gray-700 text-sm font-bold mb-2">{{ __('Phone') }}</label>
-                            <input name="phone" value="{{ old('phone', $user->phone) }}" type="text"
-                                class="rounded py-2 px-3 text-gray-700" id="phone"
-                                placeholder="{{ __('Phone') }}" maxlength="255" required="required">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">{{ __('Roles') }}</label>
-                            <input type="checkbox" name="administrator" value="Administrator" id="administrator"
-                                {{ $user->hasRole('Administrator') ? 'checked' : '' }}>
-                            <label for="administrator"> Administrator</label><br>
-                            <input type="checkbox" name="editor" value="Editor" id="editor"
-                                {{ $user->hasRole('Editor') ? 'checked' : '' }}>
-                            <label for="editor"> Editor</label><br>
-                            <input type="checkbox" name="blocked" value="Blocked" id="blocked"
-                                {{ $user->hasRole('Blocked') ? 'checked' : '' }}>
-                            <label for="blocked"> Blocked</label><br><br>
+                        <!-- Name -->
+                        <div>
+                            <x-input-label for="name" :value="__('Name')" />
+
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
+                                :value="old('name', $user->name)" required autofocus />
+
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
-                        <div>
-                            <button type="submit"
-                                class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Guardar</button>
-                            <button type="reset"
-                                class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">Restablecer</button>
+                        <!-- Email Address -->
+                        <div class="mt-4">
+                            <x-input-label for="email" :value="__('Email')" />
+
+                            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                :value="old('email', $user->email)" required />
+
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                        </div>
+
+                        <!-- City -->
+                        <div class="mt-4">
+                            <x-input-label for="city" :value="__('City')" />
+
+                            <x-text-input id="city" class="block mt-1 w-full" type="text" name="city"
+                                :value="old('city', $user->city)" required />
+
+                            <x-input-error :messages="$errors->get('city')" class="mt-2" />
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="mt-4">
+                            <x-input-label for="phone" :value="__('Phone')" />
+
+                            <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
+                                :value="old('phone', $user->phone)" />
+
+                            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+                        </div>
+
+                        <!-- Roles -->
+                        <div class="mt-4">
+                            <x-input-label :value="__('Roles')" />
+                        </div>
+                        <div class="block mt-4">
+                            <label for="administrator" class="inline-flex items-center mr-3">
+                                <input id="administrator" type="checkbox"
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="administrator" {{ $user->hasRole('Administrator') ? 'checked' : '' }}>
+                                <span class="ml-2 text-sm text-gray-600">{{ __('Administrator') }}</span>
+                            </label>
+                            <label for="editor" class="inline-flex items-center mr-3">
+                                <input id="editor" type="checkbox"
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="editor" {{ $user->hasRole('Editor') ? 'checked' : '' }}>
+                                <span class="ml-2 text-sm text-gray-600">{{ __('Editor') }}</span>
+                            </label>
+                            <label for="blocked" class="inline-flex items-center mr-3">
+                                <input id="blocked" type="checkbox"
+                                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    name="blocked" {{ $user->hasRole('Blocked') ? 'checked' : '' }}>
+                                <span class="ml-2 text-sm text-gray-600">{{ __('Blocked') }}</span>
+                            </label>
+                        </div>
+
+                        <!-- Form buttons -->
+                        <div class="flex items-center justify-end mt-4">
+                            <x-primary-button type="reset" class="ml-3">
+                                {{ __('Reset') }}
+                            </x-primary-button>
+                            <x-primary-button class="ml-3">
+                                {{ __('Save') }}
+                            </x-primary-button>
                         </div>
                     </form>
                 </div>

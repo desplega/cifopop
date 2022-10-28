@@ -2,12 +2,6 @@
     <x-alert color="green" message="{{ Session::get('success') }}" />
 @endif
 
-@if ($errors->any())
-    <x-alert color="red" message="{{ __('Please check the value of the following fields:') }}">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </x-alert>
+@if (Session::has('error'))
+    <x-alert color="red" message="{{ Session::get('error') }}" />
 @endif

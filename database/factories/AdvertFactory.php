@@ -24,7 +24,7 @@ class AdvertFactory extends Factory
             'title' => $this->faker->sentence(),
             'description' => $this->faker->text(),
             'price' => $this->faker->randomFloat(2, 5, 250),
-            'image' => 'images/default.jpg',
+            'image' => 'advert-sample.jpg',
         ];
     }
 }
