@@ -3,19 +3,14 @@
         <div class="w-full lg:w-1/2 p-3">
             <div class="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                 <div class="m-4 text-right">
-                    <a class="inline-block mx-1" href="{{ route('advert.edit', $advert->id) }}">
-                        <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Editar"
-                            title="Editar">
+                    <a class="inline-block mx-1" href="{{ route('advert.restore', $advert->id) }}">
+                        <img height="20" width="20" src="{{ asset('images/buttons/restore.png') }}" alt="Restaurar"
+                            title="Restaurar">
                     </a>
-                    <form class="inline-block mx-1" method="POST" action="{{ route('advert.destroy', $advert->id) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">
-                            <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}"
-                                alt="Borrar" title="Borrar">
-                        </button>
-                    </form>
-                </div>
+                    <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
+                        <img height="20" width="20" src="{{ asset('images/buttons/delete-red.png') }}" alt="Eliminar"
+                            title="Eliminar">
+                    </a>                </div>
                 <img class="m-auto h-60 mt-4"
                     src="{{ $advert->image ? asset('storage/' . config('filesystems.advertImagesPath')) . '/' . $advert->image : asset('images/adverts/default.jpg') }}"
                     alt="{{ __('Advert ref. :advert', ['advert' => $advert->id]) }}"

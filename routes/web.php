@@ -32,7 +32,9 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
 // Advertisements
 Route::resource('/advert', AdvertController::class);
-Route::get('/advert/delete', [AdvertController::class, 'delete'])->name('advert.delete');
+Route::get('/advert/{advert}/restore', [AdvertController::class, 'restore'])->name('advert.restore');
+Route::get('/advert/{advert}/delete', [AdvertController::class, 'delete'])->name('advert.delete');
+Route::delete('/advert/{advert}/purge', [AdvertController::class, 'purge'])->name('advert.purge');
 
 // Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');

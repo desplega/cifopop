@@ -102,18 +102,20 @@ class AdvertController extends Controller
         }
 
         return back()
-            ->with('success', __('Advert no. :advert has been successfully updated.', ['advert' => $advert->id]));
+            ->with('success', __('Advert ref. :advert has been successfully updated.', ['advert' => $advert->id]));
     }
 
     /**
      * Confirmation for deletion.
      *
-     * @param  Advert  $advert
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Advert $advert)
+    public function delete(int $id)
     {
-        return view('advert.delete', ['advert' => $advert]);
+        $advert = Advert::withTrashed()->findOrFail($id);
+
+        return view('adverts.delete', ['advert' => $advert]);
     }
 
     /**
@@ -126,14 +128,14 @@ class AdvertController extends Controller
     {
         $advert->delete();
 
-        return back()
-            ->with('success', __('Advert no. :advert has been deleted.', ['advert', $advert->id]));
+        return redirect('home')
+            ->with('success', __('Advert ref. :advert has been deleted.', ['advert' => $advert->id]));
     }
 
     /**
      * Restore a deleted advert
      * 
-     * @param int $advert
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function restore(Request $request, int $id)
@@ -143,24 +145,25 @@ class AdvertController extends Controller
         $advert->restore();
 
         return back()
-            ->with('success', __('Advert no. :advert has been restored.', ['advert' => $advert->id]));
+            ->with('success', __('Advert ref. :advert has been restored.', ['advert' => $advert->id]));
     }
 
     /**
      * Permanent delete of adverts
      * 
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function purge(Request $request)
+    public function purge(int $id)
     {
-        $advert = Advert::withTrashed()->findOrFail($request->input('advert_id'));
+        $advert = Advert::withTrashed()->findOrFail($id);
 
         if ($advert->forceDelete() && $advert->image) {
             $path = config('filesystems.advertImagesPath') . '/' . $advert->image;
             Storage::delete($path);
         }
 
-        return redirect('advert.list')
-            ->with('success', 'Advert no. :advert has been permanently deleted.', ['advert' => $advert->id]);
+        return redirect('home')
+            ->with('success', __('Advert ref. :advert has been permanently deleted.', ['advert' => $advert->id]));
     }
 }

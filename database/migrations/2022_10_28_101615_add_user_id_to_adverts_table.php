@@ -17,6 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable()->after('image');
             $table->foreign('user_id')->references('id')->on('users');
         });
+
+        // Note: Fill user_id with random users in phpMyAdmin (valid user IDs go from 1 to 6 included)
+        // UPDATE table_name SET user_id = FLOOR( 1 + RAND( ) * 6 );
     }
 
     /**
