@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
@@ -25,15 +26,8 @@ class UserController extends Controller
         return view('users.edit', ['user' => $user]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-        $request->validate([
-            'name' => 'required|max:255',
-            'email' => "required|unique:users,email,$user->id|email",
-            'city' => 'required|max:64',
-            'phone' => 'nullable|regex:/^[6,7,9]{1}[0-9]{8}$/'
-        ]);
-
         $data = $request->only(['name', 'email', 'city', 'phone']);
 
         $user->update($data);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdvertRequest;
 use Illuminate\Http\Request;
 use App\Models\Advert;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +38,7 @@ class AdvertController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdvertRequest $request)
     {
         $data = $request->only(['title', 'description', 'price']);
         $data['image'] = null;
@@ -127,8 +128,9 @@ class AdvertController extends Controller
      */
     public function destroy(Request $request, Advert $advert)
     {
-        //$advert->delete();
+        $advert->delete();
 
+        // Redirect to the Home page when deleting from Show page (i.e. /advert/19)
         if (preg_match('/[0-9]+/', URL::previous()))
             $redirect = redirect()->route('home');
         else {
