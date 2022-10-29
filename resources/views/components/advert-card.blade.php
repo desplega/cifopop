@@ -1,5 +1,5 @@
 <div class="flex flex-wrap">
-    @foreach ($adverts as $advert)
+    @forelse ($adverts as $advert)
         <div class="w-full lg:w-1/2 p-3">
             <div class="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                 <div class="m-4 text-right">
@@ -34,5 +34,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @empty
+        <p>{{ __('No results') }}</p>
+    @endforelse
 </div>

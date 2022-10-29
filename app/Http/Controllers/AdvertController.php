@@ -174,4 +174,30 @@ class AdvertController extends Controller
         return redirect('home')
             ->with('success', __('Advert ref. :advert has been permanently deleted.', ['advert' => $advert->id]));
     }
+
+    /**
+     * Search advert by title and description
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $request->validate([
+            'title' => 'max:16',
+            'description' => 'max:16'
+        ]);
+
+        $title = $request->input('title', '');
+        $description = $request->input('description', '');
+
+        $adverts = Advert::where('title', 'like', "%$title%")
+            ->where('description', 'like', "%$description%")
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10)
+            ->appends(['title' => $title, 'description' => $description]); // To be used when method is GET
+
+        // Add marca and model for POST method
+        return view('adverts.list', ['adverts' => $adverts, 'title' => $title, 'description' => $description]);
+    }
 }

@@ -10,6 +10,12 @@
             {{-- Content --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <x-advert-search :title="$title ?? ''" :description="$description ?? ''"/>
+                </div>
+            </div>
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                <div class="p-6 bg-white border-b border-gray-200">
                     <x-advert-card :adverts="$adverts" />
                 </div>
             </div>
