@@ -1,5 +1,5 @@
 <div class="flex flex-wrap">
-    @foreach ($adverts as $advert)
+    @forelse ($adverts as $advert)
         <div class="w-full lg:w-1/2 p-3">
             <div class="bg-white shadow-md border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
                 <div class="m-4 text-right">
@@ -8,9 +8,10 @@
                             title="Restaurar">
                     </a>
                     <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
-                        <img height="20" width="20" src="{{ asset('images/buttons/delete-red.png') }}" alt="Eliminar"
-                            title="Eliminar">
-                    </a>                </div>
+                        <img height="20" width="20" src="{{ asset('images/buttons/delete-red.png') }}"
+                            alt="Eliminar" title="Eliminar">
+                    </a>
+                </div>
                 <img class="m-auto h-60 mt-4"
                     src="{{ $advert->image ? asset('storage/' . config('filesystems.advertImagesPath')) . '/' . $advert->image : asset('images/adverts/default.jpg') }}"
                     alt="{{ __('Advert ref. :advert', ['advert' => $advert->id]) }}"
@@ -29,5 +30,7 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @empty
+        <p class="px-2">{{ __('No results') }}</p>
+    @endforelse
 </div>

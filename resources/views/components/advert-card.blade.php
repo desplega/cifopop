@@ -35,6 +35,6 @@
             </div>
         </div>
     @empty
-        <p>{{ __('No results') }}</p>
+        <p class="px-2">{{ __('No results') }}</p>
     @endforelse
 </div>
