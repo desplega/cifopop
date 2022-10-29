@@ -14,11 +14,19 @@
                         @csrf
                         @method('PUT')
 
-                        <!-- Reference -->
-                        <div class="mt-4">
-                            <x-input-label for="ref" :value="__('Ref')" />
-
-                            {{ old('id', $advert->id) }}
+                        <div class="flex justify-between mt-4">
+                            <div>
+                                <!-- Reference -->
+                                <x-input-label for="ref" :value="__('Ref')" />
+    
+                                {{ old('id', $advert->id) }}
+                            </div>
+                            <div>
+                                <!-- Show icon -->
+                                <a class="inline-block mx-1" href="{{ route('advert.show', $advert->id) }}">
+                                    <img height="20" width="20" src="{{ asset('images/buttons/show.png') }}" alt="Ver detalles" title="Ver detalles">
+                                </a>
+                            </div>
                         </div>
 
                         <!-- Title -->

@@ -38,3 +38,6 @@ Route::delete('/advert/{advert}/purge', [AdvertController::class, 'purge'])->nam
 
 // Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Fallback
+Route::fallback([HomeController::class, 'index']);

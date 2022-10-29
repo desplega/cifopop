@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Advert;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class AdvertController extends Controller
 {
@@ -124,12 +125,17 @@ class AdvertController extends Controller
      * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Advert $advert)
+    public function destroy(Request $request, Advert $advert)
     {
-        $advert->delete();
+        //$advert->delete();
 
-        return redirect('home')
-            ->with('success', __('Advert ref. :advert has been deleted.', ['advert' => $advert->id]));
+        if (preg_match('/[0-9]+/', URL::previous()))
+            $redirect = redirect()->route('home');
+        else {
+            $redirect = back();
+        }
+
+        return $redirect->with('success', __('Advert ref. :advert has been deleted.', ['advert' => $advert->id]));
     }
 
     /**
@@ -138,7 +144,7 @@ class AdvertController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function restore(Request $request, int $id)
+    public function restore(int $id)
     {
         $advert = Advert::withTrashed()->findOrFail($id);
 
