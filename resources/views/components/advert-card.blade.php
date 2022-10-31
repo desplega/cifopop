@@ -5,7 +5,7 @@
                 <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Editar"
                     title="Editar">
             </a>
-            <a class="inline-block mx-1" href="{{ route('advert.confirm', $advert->id) }}">
+            <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
                 <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Editar"
                     title="Editar">
             </a>

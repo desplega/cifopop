@@ -128,22 +128,6 @@ class AdvertController extends Controller
     }
 
     /**
-     * Confirmation for deletion.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function confirm(Request $request, int $id)
-    {
-        $advert = Advert::findOrFail($id);
-
-        if ($request->user()->cannot('delete', $advert))
-            abort(403, __('You can only delete your own adverts.'));
-
-        return view('adverts.confirm-delete', ['advert' => $advert]);
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  Advert  $advert
