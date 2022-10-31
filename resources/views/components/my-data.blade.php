@@ -6,7 +6,7 @@
         <div class="text-gray-700">
             {{ $user->email }}
         </div>
-        <div class="text-xl font-bold mt-4">
+        <div class="text-xl mt-4">
             {{ $user->city }}
         </div>
     </div>

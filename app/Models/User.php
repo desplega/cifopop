@@ -88,4 +88,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasRole('Editor');
     }
+
+    public function isBlocked()
+    {
+        return $this->hasRole('Blocked');
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AdvertController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/', function () {
 require __DIR__.'/auth.php';
 
 // Users
-Route::middleware(['auth', 'verified'])->group(function() {
+Route::middleware(['auth', 'verified', 'is_admin'])->group(function() {
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/user/{user}', [UserController::class, 'show'])->name('user.show');
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
@@ -39,9 +40,12 @@ Route::get('/advert/{advert}/restore', [AdvertController::class, 'restore'])->na
 Route::get('/advert/{advert}/delete', [AdvertController::class, 'delete'])->name('advert.delete');
 Route::delete('/advert/{advert}/purge', [AdvertController::class, 'purge'])->name('advert.purge');
 
-
 // Home
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// Contact form
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
 
 // Fallback
 Route::fallback([HomeController::class, 'index']);

@@ -44,6 +44,23 @@
                 </div>
             @endif
 
+            @if (Auth::user()->isBlocked())
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                    <div class="text-red-700 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
+                        {{ __('Your user is blocked') }}
+                    </div>
+                    <div class="text-gray-900 font-bold text-2xl tracking-tight my-4 px-8 dark:text-white">
+                        <div class="mb-4 text-sm text-gray-600">
+                            {{ __('Your user has been blocked by the Administrator. You can email the Administrator through the Contact form in the contact section.') }}
+                        </div>
+
+                        <a href="{{ route('contact') }}" class="flex items-center justify-end mt-4">
+                            <x-primary-button type="button">{{ __('Contact the Administrator') }}</x-primary-button>
+                        </a>
+                    </div>
+                </div>
+            @endif
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
                     {{ __('My data') }}

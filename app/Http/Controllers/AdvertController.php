@@ -14,8 +14,8 @@ class AdvertController extends Controller
 {
     public function __construct()
     {
-        // Block non verfied users
-        $this->middleware('verified')->except('index', 'show', 'search'); // 'verified' is more restrictive than 'auth'
+        // Forbid access to non verfied users and blocked users
+        $this->middleware(['auth', 'verified', 'is_blocked'])->except('index', 'show', 'search');
 
         // Ask for password again before purging adverts
         $this->middleware('password.confirm')->only('purge');

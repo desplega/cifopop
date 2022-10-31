@@ -98,5 +98,17 @@
   "No results": "Sin resultados",
   "My data": "Mis datos",
   "You can only edit your own adverts.": "Solo puedes editar tus propios anuncios.",
-  "You can only delete your own adverts.": "Solo puedes borrar tus propios anuncios."
+  "You can only delete your own adverts.": "Solo puedes borrar tus propios anuncios.",
+  "You need administrator rights for this action.": "Solo el administrador puede realizar esta operación.",
+  "You have been blocked. Please contact with the Administrator.": "Tu usuario ha sido bloqueado. Por favor contacta con el administrador.",
+  "Contact": "Contactar",
+  "Contact Form": "Formulario de contacto",
+  "Message successfully sent.": "Se ha enviado el mensaje correctamente. Pronto recibirás una respuesta.",
+  "Send": "Enviar",
+  "Subject": "Asunto",
+  "Message": "Mensaje",
+  "Application to sell online second hand products. Developed using Laravel.": "Aplicación de compra/venta de productos de segunda mano. Desarrollada con Laravel.",
+  "Your user is blocked": "Tu usuario está bloqueado",
+  "Your user has been blocked by the Administrator. You can email the Administrator through the Contact form in the contact section.": "Tu usuario ha sido bloqueado por un administrador. Puedes enviar un mensaje al Administrador mediante el formulario de contacto en la sección de contacto para resolver la incidencia.",
+  "Contact the Administrator": "Contactar con el administrador"
 }
