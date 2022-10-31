@@ -110,5 +110,8 @@
   "Application to sell online second hand products. Developed using Laravel.": "Aplicación de compra/venta de productos de segunda mano. Desarrollada con Laravel.",
   "Your user is blocked": "Tu usuario está bloqueado",
   "Your user has been blocked by the Administrator. You can email the Administrator through the Contact form in the contact section.": "Tu usuario ha sido bloqueado por un administrador. Puedes enviar un mensaje al Administrador mediante el formulario de contacto en la sección de contacto para resolver la incidencia.",
-  "Contact the Administrator": "Contactar con el administrador"
+  "Contact the Administrator": "Contactar con el administrador",
+  "You don't have rights to do this operation.": "No tienes permisos para realizar esta operación.",
+  "It seems that this advert does not exist.": "Parece que este anuncio no existe.",
+  "An error occurred while validating the form.": "Ha ocurrido un error al verificar el formulario. Inténtalo de nuevo."
 }
