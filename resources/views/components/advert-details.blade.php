@@ -8,12 +8,17 @@
         </div>
     </div>
     <div class="m-4 text-right">
-        <a class="inline-block mx-1" href="{{ route('advert.edit', $advert->id) }}">
-            <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Editar" title="Editar">
-        </a>
-        <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
-            <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar" title="Borrar">
-        </a>
+        @can('edit', $advert)
+            <a class="inline-block mx-1" href="{{ route('advert.edit', $advert->id) }}">
+                <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Editar" title="Editar">
+            </a>
+        @endcan
+        @can('delete', $advert)
+            <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
+                <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
+                    title="Borrar">
+            </a>
+        @endcan
     </div>
 </div>
 <img class="m-auto h-60"

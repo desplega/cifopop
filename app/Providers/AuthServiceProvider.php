@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete-any-advert', function (User $user) {
             return $user->isAdmin() || $user->isEditor();
         });
+
+        Gate::define('manage-users', function (User $user) {
+            return $user->isAdmin();
+        });
     }
 }

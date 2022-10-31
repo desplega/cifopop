@@ -8,15 +8,19 @@
                 @endif
             </span>
             <div>
-            <a class="inline-block mx-1" href="{{ route('advert.restore', $advert->id) }}">
-                <img height="20" width="20" src="{{ asset('images/buttons/restore.png') }}" alt="Restaurar"
-                    title="Restaurar">
-            </a>
-            <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
-                <img height="20" width="20" src="{{ asset('images/buttons/delete-red.png') }}" alt="Eliminar"
-                    title="Eliminar">
-            </a>
-        </div>
+                @can('restore', $advert)
+                    <a class="inline-block mx-1" href="{{ route('advert.restore', $advert->id) }}">
+                        <img height="20" width="20" src="{{ asset('images/buttons/restore.png') }}" alt="Restaurar"
+                            title="Restaurar">
+                    </a>
+                @endcan
+                @can('forceDelete', $advert)
+                    <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
+                        <img height="20" width="20" src="{{ asset('images/buttons/delete-red.png') }}" alt="Eliminar"
+                            title="Eliminar">
+                    </a>
+                @endcan
+            </div>
         </div>
         <img class="m-auto h-60 mt-4"
             src="{{ $advert->image ? asset('storage/' . config('filesystems.advertImagesPath')) . '/' . $advert->image : asset('images/adverts/default.jpg') }}"

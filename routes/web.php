@@ -17,9 +17,7 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'advert');
 
 require __DIR__.'/auth.php';
 

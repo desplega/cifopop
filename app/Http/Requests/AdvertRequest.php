@@ -27,7 +27,7 @@ class AdvertRequest extends FormRequest
             'title' => 'required|min:3|max:255',
             'description' => 'required|min:3|max:512',
             'price' => 'required|numeric|min:0',
-            'image' => 'file|image|mimes:jpg,png,gif,webp|max:2048',
+            'image' => 'required|file|image|mimes:jpg,png,gif,webp|max:2048',
         ];
     }
 }
