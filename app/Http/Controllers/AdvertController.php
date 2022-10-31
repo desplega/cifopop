@@ -5,11 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AdvertRequest;
 use Illuminate\Http\Request;
 use App\Models\Advert;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 
 class AdvertController extends Controller
 {
+    public function __construct()
+    {
+        // Block non verfied users
+        $this->middleware('verified')->except('index', 'show', 'search'); // 'verified' is more restrictive than 'auth'
+
+        // Ask for password again before purging adverts
+        $this->middleware('password.confirm')->only('purge');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +28,12 @@ class AdvertController extends Controller
     public function index()
     {
         $adverts = Advert::orderBy('created_at', 'DESC')->paginate(10);
+        $deleted_adverts = Advert::orderBy('created_at', 'DESC')->withTrashed()->paginate(10);
 
-        return view('adverts.list', ['adverts' => $adverts]);
+        if (Gate::allows('delete-any-advert'))
+            return view('adverts.list', ['adverts' => $adverts, 'deleted_adverts' => $deleted_adverts]);
+        else
+            return view('adverts.list', ['adverts' => $adverts]);
     }
 
     /**
@@ -72,8 +86,11 @@ class AdvertController extends Controller
      * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function edit(Advert $advert)
+    public function edit(Request $request, Advert $advert)
     {
+        if ($request->user()->cannot('update', $advert))
+            abort(403, __('You can only edit your own adverts.'));
+
         return view('adverts.edit', ['advert' => $advert]);
     }
 
@@ -86,6 +103,9 @@ class AdvertController extends Controller
      */
     public function update(Request $request, Advert $advert)
     {
+        if ($request->user()->cannot('update', $advert))
+            abort(403, __('You can only edit your own adverts.'));
+
         $data = $request->only('title', 'description', 'price');
 
         if ($request->hasFile('image')) {
@@ -113,11 +133,14 @@ class AdvertController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(int $id)
+    public function confirm(Request $request, int $id)
     {
-        $advert = Advert::withTrashed()->findOrFail($id);
+        $advert = Advert::findOrFail($id);
 
-        return view('adverts.delete', ['advert' => $advert]);
+        if ($request->user()->cannot('delete', $advert))
+            abort(403, __('You can only delete your own adverts.'));
+
+        return view('adverts.confirm-delete', ['advert' => $advert]);
     }
 
     /**
@@ -128,6 +151,9 @@ class AdvertController extends Controller
      */
     public function destroy(Request $request, Advert $advert)
     {
+        if ($request->user()->cannot('delete', $advert))
+            abort(403, __('You can only delete your own adverts.'));
+
         $advert->delete();
 
         // Redirect to the Home page when deleting from Show page (i.e. /advert/19)
@@ -146,9 +172,12 @@ class AdvertController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function restore(int $id)
+    public function restore(Request $request, int $id)
     {
         $advert = Advert::withTrashed()->findOrFail($id);
+
+        if ($request->user()->cannot('delete', $advert))
+            abort(403, __('You can only restore your own adverts.'));
 
         $advert->restore();
 
@@ -157,14 +186,33 @@ class AdvertController extends Controller
     }
 
     /**
+     * Confirmation for deletion.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, int $id)
+    {
+        $advert = Advert::withTrashed()->findOrFail($id);
+
+        if ($request->user()->cannot('delete', $advert))
+            abort(403, __('You can only delete your own adverts.'));
+
+        return view('adverts.delete', ['advert' => $advert]);
+    }
+
+    /**
      * Permanent delete of adverts
      * 
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function purge(int $id)
+    public function purge(Request $request, int $id)
     {
         $advert = Advert::withTrashed()->findOrFail($id);
+
+        if ($request->user()->cannot('delete', $advert))
+            abort(403, __('You can only delete your own adverts.'));
 
         if ($advert->forceDelete() && $advert->image) {
             $path = config('filesystems.advertImagesPath') . '/' . $advert->image;

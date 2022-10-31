@@ -35,6 +35,7 @@ Route::match(['GET', 'POST'], 'advert/search', [AdvertController::class, 'search
 
 // Advertisements
 Route::resource('/advert', AdvertController::class);
+Route::get('/advert/{advert}/confirm', [AdvertController::class, 'confirm'])->name('advert.confirm');
 Route::get('/advert/{advert}/restore', [AdvertController::class, 'restore'])->name('advert.restore');
 Route::get('/advert/{advert}/delete', [AdvertController::class, 'delete'])->name('advert.delete');
 Route::delete('/advert/{advert}/purge', [AdvertController::class, 'purge'])->name('advert.purge');

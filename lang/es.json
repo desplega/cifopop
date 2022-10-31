@@ -67,6 +67,7 @@
   "Users list": "Lista de usuarios",
   "User details": "Detalles de usuario",
   "Edit user": "Edición del usuario",
+  "Delete advert": "Borrar anuncio",
   "Please check the value of the following fields:": "Por favor, comprueba el valor de los campos siguientes:",
   "User :user has been updated.": "El usuario :user se ha actualizado correctamente.",
   "No roles": "Sin roles",
@@ -88,8 +89,14 @@
   "Price": "Precio",
   "Image": "Imagen",
   "My Adverts": "Mis anuncios",
-  "Active Adverts": "Anuncios activos",
-  "Deleted Adverts": "Anuncios borrados",
+  "Published adverts": "Anuncios publicados",
+  "Deleted adverts": "Anuncios borrados",
   "Are you sure you want to permanently delete this advert?": "¿Estás seguro de querer borrar permanentemente el anuncio?",
-  "No results": "Sin resultados"
+  "Are you sure you want to delete this advert (it can be restored later)?": "¿Estás seguro de querer borrar el anuncio? (podrá ser restaurado más tarde)",
+  "Search": "Buscar",
+  "Clear": "Borrar",
+  "No results": "Sin resultados",
+  "My data": "Mis datos",
+  "You can only edit your own adverts.": "Solo puedes editar tus propios anuncios.",
+  "You can only delete your own adverts.": "Solo puedes borrar tus propios anuncios."
 }

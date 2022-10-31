@@ -78,4 +78,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Advert::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('Administrator');
+    }
+
+    public function isEditor()
+    {
+        return $this->hasRole('Editor');
+    }
 }

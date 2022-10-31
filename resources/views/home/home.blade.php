@@ -46,29 +46,47 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
-                    {{ __('Active Adverts') }}
+                    {{ __('My data') }}
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <x-advert-card :adverts="$adverts" />
+                    <x-my-data :user="Auth::user()" />
                 </div>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
-                    {{ __('Deleted Adverts') }}
+                    {{ __('Published adverts') }}
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <x-deleted-advert-card :adverts="$deleted_adverts" />
+                    <div class="flex flex-wrap">
+                        @forelse ($adverts as $advert)
+                            <x-advert-card :advert="$advert" />
+                        @empty
+                            <p class="px-2">{{ __('No results') }}</p>
+                        @endforelse
+                    </div>
+                    @if ($adverts->hasPages())
+                        <div class="mt-4">
+                            {{ $adverts->links() }}
+                        </div>
+                    @endif
                 </div>
             </div>
 
-            @if ($adverts->hasPages())
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        {{ $adverts->links() }}
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
+                    {{ __('Deleted adverts') }}
+                </div>
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="flex flex-wrap">
+                        @forelse ($deleted_adverts as $advert)
+                            <x-deleted-advert-card :advert="$advert" />
+                        @empty
+                            <p class="px-2">{{ __('No results') }}</p>
+                        @endforelse
                     </div>
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 </x-app-layout>
