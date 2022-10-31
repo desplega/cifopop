@@ -53,7 +53,7 @@ class AdvertPolicy
      */
     public function update(User $user, Advert $advert)
     {
-        return $user->hasRole('Editor') || ($user->id === $advert->user_id);
+        return $user->isAdmin() || $user->isEditor() || ($user->id === $advert->user_id);
     }
 
     /**
@@ -65,7 +65,7 @@ class AdvertPolicy
      */
     public function delete(User $user, Advert $advert)
     {
-        return $user->hasRole('Editor') || ($user->id === $advert->user_id);
+        return $user->isAdmin() || $user->isEditor() || $user->id === $advert->user_id;
     }
 
     /**
@@ -77,7 +77,7 @@ class AdvertPolicy
      */
     public function restore(User $user, Advert $advert)
     {
-        //
+        return $user->isAdmin() || $user->id === $advert->user_id;
     }
 
     /**
@@ -89,6 +89,6 @@ class AdvertPolicy
      */
     public function forceDelete(User $user, Advert $advert)
     {
-        //
+        return $user->isAdmin() || $user->id === $advert->user_id;
     }
 }

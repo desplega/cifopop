@@ -8,6 +8,7 @@ use App\Models\Advert;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Session;
 
 class AdvertController extends Controller
 {
@@ -77,6 +78,8 @@ class AdvertController extends Controller
      */
     public function show(Advert $advert)
     {
+        Session::put('returnTo', URL::previous());
+
         return view('adverts.show', ['advert' => $advert]);
     }
 
@@ -128,6 +131,28 @@ class AdvertController extends Controller
     }
 
     /**
+     * Confirmation for deletion.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete(Request $request, int $id)
+    {
+        $advert = Advert::withTrashed()->findOrFail($id);
+
+        if (
+            $request->user()->cannot('delete', $advert) ||
+            ($advert->deleted_at && $request->user()->cannot('forceDelete', $advert))
+        )
+            abort(403, __('You can only delete your own adverts.'));
+
+        if (!Session::has('returnTo'))
+            Session::put('returnTo', URL::previous());
+
+        return view('adverts.delete', ['advert' => $advert]);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  Advert  $advert
@@ -140,12 +165,10 @@ class AdvertController extends Controller
 
         $advert->delete();
 
-        // Redirect to the Home page when deleting from Show page (i.e. /advert/19)
-        if (preg_match('/[0-9]+/', URL::previous()))
-            $redirect = redirect()->route('home');
-        else {
-            $redirect = back();
-        }
+        $redirect = Session::has('returnTo') ?
+            redirect(Session::get('returnTo')) :
+            redirect()->route('home');
+        Session::remove('returnTo');
 
         return $redirect->with('success', __('Advert ref. :advert has been deleted.', ['advert' => $advert->id]));
     }
@@ -160,29 +183,13 @@ class AdvertController extends Controller
     {
         $advert = Advert::withTrashed()->findOrFail($id);
 
-        if ($request->user()->cannot('delete', $advert))
+        if ($request->user()->cannot('restore', $advert))
             abort(403, __('You can only restore your own adverts.'));
 
         $advert->restore();
 
         return back()
             ->with('success', __('Advert ref. :advert has been restored.', ['advert' => $advert->id]));
-    }
-
-    /**
-     * Confirmation for deletion.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function delete(Request $request, int $id)
-    {
-        $advert = Advert::withTrashed()->findOrFail($id);
-
-        if ($request->user()->cannot('delete', $advert))
-            abort(403, __('You can only delete your own adverts.'));
-
-        return view('adverts.delete', ['advert' => $advert]);
     }
 
     /**

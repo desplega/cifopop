@@ -11,14 +11,9 @@
         <a class="inline-block mx-1" href="{{ route('advert.edit', $advert->id) }}">
             <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Editar" title="Editar">
         </a>
-        <form class="inline-block mx-1" method="POST" action="{{ route('advert.destroy', $advert->id) }}">
-            @csrf
-            @method('DELETE')
-            <button type="submit">
-                <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar"
-                    title="Borrar">
-            </button>
-        </form>
+        <a class="inline-block mx-1" href="{{ route('advert.delete', $advert->id) }}">
+            <img height="20" width="20" src="{{ asset('images/buttons/delete.png') }}" alt="Borrar" title="Borrar">
+        </a>
     </div>
 </div>
 <img class="m-auto h-60"
