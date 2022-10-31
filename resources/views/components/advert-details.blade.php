@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="m-4 text-right">
-        @can('edit', $advert)
+        @can('update', $advert)
             <a class="inline-block mx-1" href="{{ route('advert.edit', $advert->id) }}">
                 <img height="20" width="20" src="{{ asset('images/buttons/edit.png') }}" alt="Editar" title="Editar">
             </a>
