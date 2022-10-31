@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Advert;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Session;
 
 class AdvertController extends Controller
@@ -30,6 +29,8 @@ class AdvertController extends Controller
     {
         $adverts = Advert::orderBy('created_at', 'DESC')->paginate(10);
         $deleted_adverts = Advert::orderBy('created_at', 'DESC')->withTrashed()->paginate(10);
+
+        Session::put('returnTo', 'advert.index'); // When an advert is deleted we'll come back here
 
         if (Gate::allows('delete-any-advert'))
             return view('adverts.list', ['adverts' => $adverts, 'deleted_adverts' => $deleted_adverts]);
@@ -78,8 +79,6 @@ class AdvertController extends Controller
      */
     public function show(Advert $advert)
     {
-        Session::put('returnTo', URL::previous());
-
         return view('adverts.show', ['advert' => $advert]);
     }
 
@@ -146,9 +145,6 @@ class AdvertController extends Controller
         )
             abort(403, __('You can only delete your own adverts.'));
 
-        if (!Session::has('returnTo'))
-            Session::put('returnTo', URL::previous());
-
         return view('adverts.delete', ['advert' => $advert]);
     }
 
@@ -166,8 +162,8 @@ class AdvertController extends Controller
         $advert->delete();
 
         $redirect = Session::has('returnTo') ?
-            redirect(Session::get('returnTo')) :
-            redirect()->route('home');
+            redirect()->route(Session::get('returnTo')) :
+            redirect()->route('advert.index');
         Session::remove('returnTo');
 
         return $redirect->with('success', __('Advert ref. :advert has been deleted.', ['advert' => $advert->id]));

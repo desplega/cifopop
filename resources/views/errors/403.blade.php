@@ -13,7 +13,7 @@
                     <x-error
                         error="{{ __('Forbidden') }}"
                         image="{{ asset('images/errors/error-403.png') }}"
-                        description="{{ __('You don\'t have rights to do this operation.') }}"
+                        description="{{ $exception->getMessage() ?: __('You don\'t have rights to do this operation.') }}"
                     />
                 </div>
             </div>

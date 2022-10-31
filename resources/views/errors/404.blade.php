@@ -13,7 +13,7 @@
                     <x-error
                         error="{{ __('Not Found') }}"
                         image="{{ asset('images/errors/error-404.png') }}"
-                        description="{{ __('It seems that this advert does not exist.') }}"
+                        description="{{ $exception->getMessage() ?: __('It seems that this advert does not exist.') }}"
                     />
                 </div>
             </div>

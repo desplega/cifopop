@@ -113,5 +113,6 @@
   "Contact the Administrator": "Contactar con el administrador",
   "You don't have rights to do this operation.": "No tienes permisos para realizar esta operación.",
   "It seems that this advert does not exist.": "Parece que este anuncio no existe.",
-  "An error occurred while validating the form.": "Ha ocurrido un error al verificar el formulario. Inténtalo de nuevo."
+  "An error occurred while validating the form.": "Ha ocurrido un error al verificar el formulario. Inténtalo de nuevo.",
+  "Ooops! Something went wrong!": "¡Ui! Algo no ha ido bien..."
 }

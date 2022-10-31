@@ -13,7 +13,7 @@
                     <x-error
                         error="{{ __('Page Expired') }}"
                         image="{{ asset('images/errors/error-419.png') }}"
-                        description="{{ __('An error occurred while validating the form.') }}"
+                        description="{{ $exception->getMessage() ?: __('An error occurred while validating the form.') }}"
                     />
                 </div>
             </div>
