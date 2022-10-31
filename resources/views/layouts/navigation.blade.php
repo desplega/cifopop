@@ -19,6 +19,7 @@
                     </x-nav-link>
                 </div>
 
+                @auth
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home') ||
                         (Session::get('returnTo') === 'home' &&
@@ -33,6 +34,7 @@
                         {{ __('New advert') }}
                     </x-nav-link>
                 </div>
+                @endcan
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
