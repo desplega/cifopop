@@ -27,11 +27,13 @@ class OfferController extends Controller
 
         // Check whether the authenticated user has already an offer on this advert.
         // If so, then go to advert details page. Otherwise go directly to create offer page.
+        $user_id = $request->user()->id;
         $offer = $advert->offers()
-            ->where('user_id', $request->user()->id)
+            ->where('user_id', $user_id)
             ->first();
 
-        if ($offer)
+        // Check both: if the advert belongs to the user of if the user has an offer this advert.
+        if ($advert->user_id == $user_id || $offer)
             return redirect()->route('advert.show', $advert->id);
         else
             return view('offers.create', ['advert' => $advert]);
