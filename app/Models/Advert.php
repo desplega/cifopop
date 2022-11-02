@@ -16,4 +16,9 @@ class Advert extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function offer()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }

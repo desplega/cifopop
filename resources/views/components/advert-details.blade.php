@@ -37,7 +37,17 @@
     </p>
     <div class="text-4xl text-gray-600 text-center font-bold my-4">{{ str_replace('.', ',', $advert->price) }} €
     </div>
-    <a href="#" class="flex items-center justify-end mt-4">
-        <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
+    <a href="{{ route('offer.create') . '?advert_id=' . $advert->id }}" class="items-center text-right mt-4">
+        @auth
+            <span class="block">
+                <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
+            </span>
+        @endauth
+        @guest
+            <p class="mb-2">{{ __('Log in to make an offer') }}</p>
+            <span class="block">
+                <x-primary-button type="button">{{ __('Log in') }}</x-primary-button>
+            </span>
+        @endguest
     </a>
 </div>

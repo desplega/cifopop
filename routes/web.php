@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OfferController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 // Contact form
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+
+// Offers
+Route::get('/offer/create', [OfferController::class, 'create'])->name('offer.create');
+Route::post('/offer/store', [OfferController::class, 'store'])->name('offer.store');
+Route::get('/offer/{offer}', [OfferController::class, 'show'])->name('offer.show');
 
 // Fallback
 Route::fallback([HomeController::class, 'index']);

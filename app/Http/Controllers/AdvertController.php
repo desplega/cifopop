@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdvertRequest;
+use App\Http\Requests\StoreAdvertRequest;
+use App\Http\Requests\UpdateAdvertRequest;
 use Illuminate\Http\Request;
 use App\Models\Advert;
 use Illuminate\Support\Facades\Gate;
@@ -51,10 +52,10 @@ class AdvertController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreAdvertRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AdvertRequest $request)
+    public function store(StoreAdvertRequest $request)
     {
         $data = $request->only(['title', 'description', 'price']);
         $data['image'] = null;
@@ -99,11 +100,11 @@ class AdvertController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\UpdateAdvertRequest  $request
      * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Advert $advert)
+    public function update(UpdateAdvertRequest $request, Advert $advert)
     {
         if ($request->user()->cannot('update', $advert))
             abort(403, __('You can only edit your own adverts.'));

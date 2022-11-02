@@ -93,4 +93,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasRole('Blocked');
     }
+
+    public function offer()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }
