@@ -4,7 +4,9 @@
     title="{{ __('Advert ref. :advert', ['advert' => $advert->id]) }}">
 <div class="p-5">
     <div class="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
-        {{ $advert->title }}
+        <a href="{{ route('advert.show', $advert->id) }}" class="hover:underline">
+            {{ $advert->title }}
+        </a>
     </div>
     <p class="h-12 overflow-hidden font-normal text-gray-700 mb-3 dark:text-gray-400">
         {{ $advert->description }}</p>

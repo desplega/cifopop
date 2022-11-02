@@ -67,7 +67,7 @@ class OfferController extends Controller
         $offer->delete();
 
         return redirect()->route('advert.show', $offer->advert->id)
-            ->with('success', __('Offer has been cancelled.'));
+            ->with('success', __('Offer :offer has been cancelled.', ['offer' => $offer->id]));
     }
 
     /**
@@ -78,12 +78,22 @@ class OfferController extends Controller
      */
     public function accept(Offer $offer)
     {
+        $data = [];
         $data['accepted'] = date('Y-m-d H:i:s');
-
         $offer->update($data);
 
+        // Reject the rest of offers for this advert
+        $data = [];
+        $data['rejected'] = date('Y-m-d H:i:s');
+        //\Illuminate\Support\Facades\DB::enableQueryLog();
+        $offers = $offer->advert->offers()->where('id', '!=', $offer->id)->get();
+        //dd(\Illuminate\Support\Facades\DB::getQueryLog());
+        foreach($offers as $o) {
+            $o->update($data);
+        }
+
         return redirect()->route('advert.show', $offer->advert->id)
-            ->with('success', __('Offer has been accepted.'));
+            ->with('success', __('Offer :offer has been accepted.', ['offer' => $offer->id]));
     }
 
     /**
@@ -99,6 +109,6 @@ class OfferController extends Controller
         $offer->update($data);
 
         return redirect()->route('advert.show', $offer->advert->id)
-            ->with('success', __('Offer has been rejected.'));
+            ->with('success', __('Offer :offer has been rejected.', ['offer' => $offer->id]));
     }
 }

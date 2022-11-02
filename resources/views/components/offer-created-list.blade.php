@@ -5,7 +5,12 @@
                 {{ __('ID') . ': #' . $offer->id }}
             </div>
             <p class="text-gray-700 dark:text-gray-400">
-                <b>{{ $offer->title }}</b> {{ ' (' . $offer->user_name . ')' }}</p>
+                <b>
+                    <a href="{{ route('advert.show', $offer->advert_id) }}" class="hover:underline">
+                        {{ $offer->title }}
+                    </a>
+                </b> ({{ $offer->user_name }})
+            </p>
             <p class="font-bold text-gray-700 text-center dark:text-gray-400">
                 {{ str_replace('.', ',', $offer->price) }} €</p>
             <div class="text-4xl text-gray-600 text-center font-bold my-4">
@@ -25,7 +30,7 @@
                         <x-primary-button type="button">{{ __('Cancel') }}</x-primary-button>
                     </a>
                 @endcan
-            </div>                       
+            </div>
         </div>
     </div>
 </div>

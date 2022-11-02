@@ -126,5 +126,7 @@
   "says": "dice",
   "Due date": "Fecha límite",
   "No due date": "Sin límite",
-  "Cancel": "Cancelar"
+  "Cancel": "Cancelar",
+  "Accepted": "Aceptada",
+  "Rejected": "Rechazada"
 }
