@@ -20,8 +20,8 @@ return new class extends Migration
             $table->date('due_date')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('advert_id');
-            $table->date('accepted')->nullable();
-            $table->date('rejected')->nullable();
+            $table->timestamp('accepted')->nullable();
+            $table->timestamp('rejected')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

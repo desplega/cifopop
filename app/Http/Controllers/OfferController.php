@@ -62,7 +62,10 @@ class OfferController extends Controller
      */
     public function cancel(Offer $offer)
     {
-        //
+        $offer->delete();
+
+        return redirect()->route('advert.show', $offer->advert->id)
+            ->with('success', __('Offer has been cancelled.'));
     }
 
     /**
@@ -73,7 +76,12 @@ class OfferController extends Controller
      */
     public function accept(Offer $offer)
     {
-        //
+        $data['accepted'] = date('Y-m-d H:i:s');
+
+        $offer->update($data);
+
+        return redirect()->route('advert.show', $offer->advert->id)
+            ->with('success', __('Offer has been accepted.'));
     }
 
     /**
@@ -84,6 +92,11 @@ class OfferController extends Controller
      */
     public function reject(Offer $offer)
     {
-        //
+        $data['rejected'] = date('Y-m-d H:i:s');
+
+        $offer->update($data);
+
+        return redirect()->route('advert.show', $offer->advert->id)
+            ->with('success', __('Offer has been rejected.'));
     }
 }
