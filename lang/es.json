@@ -41,6 +41,7 @@
   "Unauthorized": "No autorizado",
   "Verify Email Address": "Confirma tu correo electrónico",
   "Verify Your Email Address": "Verifica tu correo electrónico",
+  "Already registered?": "¿Ya estás registrado?",
   "We won't ask for your password again for a few hours.": "No pediremos tu contraseña de nuevo por unas horas.",
   "You are receiving this email because we received a password reset request for your account.": "Ha recibido este mensaje porque se solicitó un restablecimiento de contraseña para su cuenta.",
   "Your email address is not verified.": "Tu dirección de correo electrónico no está verificada.",
@@ -88,7 +89,7 @@
   "Description": "Descripción",
   "Price": "Precio",
   "Image": "Imagen",
-  "My Adverts": "Mis anuncios",
+  "Home": "Área de usuario",
   "Published adverts": "Anuncios publicados",
   "Deleted adverts": "Anuncios borrados",
   "Are you sure you want to permanently delete this advert?": "¿Estás seguro de querer borrar permanentemente el anuncio?",
@@ -114,5 +115,13 @@
   "You don't have rights to do this operation.": "No tienes permisos para realizar esta operación.",
   "It seems that this advert does not exist.": "Parece que este anuncio no existe.",
   "An error occurred while validating the form.": "Ha ocurrido un error al verificar el formulario. Inténtalo de nuevo.",
-  "Ooops! Something went wrong!": "¡Ui! Algo no ha ido bien..."
+  "Ooops! Something went wrong!": "¡Vaya! Algo no ha ido bien...",
+  "Log in to make an offer": "Entra para hacer una oferta",
+  "Created offers": "Ofertas realizadas",
+  "Received offers": "Ofertas recibidas",
+  "Accept": "Aceptar",
+  "Reject": "Rechazar",
+  "says": "dice",
+  "Due date": "Fecha límite",
+  "No due date": "Sin límite"
 }

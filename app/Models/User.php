@@ -94,8 +94,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasRole('Blocked');
     }
 
-    public function offer()
+    public function offers()
     {
         return $this->hasMany(Offer::class);
+    }
+
+    public function getOffer(int $advert_id): ?int
+    {
+        return $this->offers
+            ->where('advert_id', $advert_id)
+            ->first()
+            ?->id;
     }
 }

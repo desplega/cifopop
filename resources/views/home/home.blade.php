@@ -1,13 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('My Adverts') }}
+            {{ __('Home') }}
         </h2>
     </x-slot>
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             {{-- Content --}}
+
+            <!-- Non verified user notification -->
             @if (null === Auth::user()->email_verified_at)
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                     <div class="text-gray-900 font-bold text-2xl tracking-tight my-4 px-8 dark:text-white">
@@ -44,6 +46,7 @@
                 </div>
             @endif
 
+            <!-- Blocked user notification -->
             @if (Auth::user()->isBlocked())
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                     <div class="text-red-700 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
@@ -61,15 +64,17 @@
                 </div>
             @endif
 
+            <!-- User profile data -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
                     {{ __('My data') }}
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <x-my-data :user="Auth::user()" />
+                    <x-my-data :user="Auth::user()" :received_offers="$received_offers" :created_offers="$created_offers"/>
                 </div>
             </div>
 
+            <!-- Published adverts -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
                     {{ __('Published adverts') }}
@@ -90,6 +95,7 @@
                 </div>
             </div>
 
+            <!-- Deleted adverts -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
                 <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
                     {{ __('Deleted adverts') }}
@@ -98,6 +104,38 @@
                     <div class="flex flex-wrap">
                         @forelse ($deleted_adverts as $advert)
                             <x-deleted-advert-card :advert="$advert" />
+                        @empty
+                            <p class="px-2">{{ __('No results') }}</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
+            <!-- Received offers -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
+                    {{ __('Received offers') }}
+                </div>
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="flex flex-wrap">
+                        @forelse ($received_offers as $offer)
+                            <x-offer-received-list :offer="$offer" />
+                        @empty
+                            <p class="px-2">{{ __('No results') }}</p>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
+            <!-- Created offers -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
+                    {{ __('Created offers') }}
+                </div>
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <div class="flex flex-wrap">
+                        @forelse ($created_offers as $offer)
+                            <x-offer-created-list :offer="$offer" />
                         @empty
                             <p class="px-2">{{ __('No results') }}</p>
                         @endforelse

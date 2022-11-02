@@ -99,4 +99,14 @@ class OfferController extends Controller
     {
         //
     }
+
+    public function accept(Offer $offer)
+    {
+        # code...
+    }
+
+    public function reject(Offer $offer)
+    {
+        # code...
+    }
 }

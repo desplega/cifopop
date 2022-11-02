@@ -50,6 +50,8 @@ Route::post('/contact', [ContactController::class, 'send'])->name('contact.send'
 Route::get('/offer/create', [OfferController::class, 'create'])->name('offer.create');
 Route::post('/offer/store', [OfferController::class, 'store'])->name('offer.store');
 Route::get('/offer/{offer}', [OfferController::class, 'show'])->name('offer.show');
+Route::get('/offer/{offer}/accept', [OfferController::class, 'accept'])->name('offer.accept');
+Route::get('/offer/{offer}/reject', [OfferController::class, 'reject'])->name('offer.reject');
 
 // Fallback
 Route::fallback([HomeController::class, 'index']);

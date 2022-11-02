@@ -6,6 +6,7 @@ use App\Http\Requests\StoreAdvertRequest;
 use App\Http\Requests\UpdateAdvertRequest;
 use Illuminate\Http\Request;
 use App\Models\Advert;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
@@ -80,7 +81,17 @@ class AdvertController extends Controller
      */
     public function show(Advert $advert)
     {
-        return view('adverts.show', ['advert' => $advert]);
+        $received_offers = DB::table('offers')
+            ->leftJoin('adverts', 'adverts.id', '=', 'offers.advert_id')
+            ->leftJoin('users', 'users.id', '=', 'offers.user_id')
+            ->select('offers.*', 'users.name as user_name', 'adverts.title', 'adverts.price')
+            ->where('adverts.id', $advert->id)
+            ->get();
+
+        return view('adverts.show', [
+            'advert' => $advert,
+            'received_offers' => $received_offers,
+        ]);
     }
 
     /**

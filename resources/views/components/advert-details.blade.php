@@ -1,3 +1,4 @@
+<!-- Advert details -->
 <div class="flex justify-between">
     <div class="text-gray-900 tracking-tight dark:text-white p-5">
         <div class="block text-2xl font-bold mb-2">
@@ -39,9 +40,11 @@
     </div>
     <a href="{{ route('offer.create') . '?advert_id=' . $advert->id }}" class="items-center text-right mt-4">
         @auth
-            <span class="block">
-                <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
-            </span>
+            @if (Auth::user()->id != $advert->user->id && Auth::user()->getOffer($advert->id) == null)
+                <span class="block">
+                    <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
+                </span>
+            @endif
         @endauth
         @guest
             <p class="mb-2">{{ __('Log in to make an offer') }}</p>

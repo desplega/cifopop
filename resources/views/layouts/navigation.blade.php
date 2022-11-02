@@ -25,7 +25,7 @@
                         (Session::get('returnTo') === 'home' &&
                             !request()->routeIs('advert.create') &&
                             !request()->routeIs('contact'))">
-                        {{ __('My Adverts') }}
+                        {{ __('Home') }}
                     </x-nav-link>
                 </div>
 
