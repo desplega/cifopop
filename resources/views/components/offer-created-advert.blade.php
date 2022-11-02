@@ -4,10 +4,6 @@
             <div class="text-gray-900 font-bold text-2xl tracking-tight mb-2 dark:text-white">
                 {{ __('ID') . ': #' . $offer->id }}
             </div>
-            <p class="text-gray-700 dark:text-gray-400">
-                <b>{{ $offer->title }}</b> {{ ' (' . $offer->user_name . ')' }}</p>
-            <p class="font-bold text-gray-700 text-center dark:text-gray-400">
-                {{ str_replace('.', ',', $offer->price) }} €</p>
             <div class="text-4xl text-gray-600 text-center font-bold my-4">
                 {{ str_replace('.', ',', $offer->amount) }} €</div>
             <p class="font-normal text-gray-700 dark:text-gray-400">
@@ -25,7 +21,7 @@
                         <x-primary-button type="button">{{ __('Cancel') }}</x-primary-button>
                     </a>
                 @endcan
-            </div>                       
+            </div>
         </div>
     </div>
 </div>

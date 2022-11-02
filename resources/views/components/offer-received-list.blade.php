@@ -17,6 +17,7 @@
                 <b>{{ __('Due date') }}:
                 </b>{{ $offer->due_date ? Custom::formatDate('es', $offer->due_date) : __('No due date') }}
             </p>
+            <!-- Actions -->
             <div class="flex justify-end">
                 <a class="m-2" href="{{ route('offer.accept', $offer->id) }}"
                     class="flex items-center justify-end mt-4">

@@ -14,21 +14,41 @@
                 </div>
             </div>
 
-            <!-- Received offers -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
-                <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
-                    {{ __('Received offers') }}
-                </div>
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="flex flex-wrap">
-                        @forelse ($received_offers as $offer)
-                            <x-offer-received-advert :offer="$offer" />
-                        @empty
-                            <p class="px-2">{{ __('No results') }}</p>
-                        @endforelse
+            @auth
+                @if (Auth::user()->id == $advert->user_id)
+                    <!-- Received offers -->
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                        <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
+                            {{ __('Received offers') }}
+                        </div>
+                        <div class="p-6 bg-white border-b border-gray-200">
+                            <div class="flex flex-wrap">
+                                @forelse ($received_offers as $offer)
+                                    @can('view', $offer)
+                                        <x-offer-received-advert :offer="$offer" />
+                                    @endcan
+                                @empty
+                                    <p class="px-2">{{ __('No results') }}</p>
+                                @endforelse
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                @else
+                    <!-- Created offer -->
+                    @if ($created_offer)
+                        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+                            <div class="text-gray-900 font-bold text-2xl tracking-tight mt-4 px-8 dark:text-white">
+                                {{ __('Created offer') }}
+                            </div>
+                            <div class="p-6 bg-white border-b border-gray-200">
+                                <div class="flex flex-wrap">
+                                    <x-offer-created-advert :offer="$created_offer" />
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endif
+            @endauth
         </div>
     </div>
 </x-app-layout>

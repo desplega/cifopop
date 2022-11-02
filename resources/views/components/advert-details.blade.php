@@ -40,7 +40,7 @@
     </div>
     <a href="{{ route('offer.create') . '?advert_id=' . $advert->id }}" class="items-center text-right mt-4">
         @auth
-            @if (Auth::user()->id != $advert->user->id && Auth::user()->getOffer($advert->id) == null)
+            @if (Auth::user()->id != $advert->user->id && Auth::user()->getOffer($advert->id) == null && !strpos(url()->current(), 'offer'))
                 <span class="block">
                     <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
                 </span>

@@ -117,11 +117,14 @@
   "An error occurred while validating the form.": "Ha ocurrido un error al verificar el formulario. Inténtalo de nuevo.",
   "Ooops! Something went wrong!": "¡Vaya! Algo no ha ido bien...",
   "Log in to make an offer": "Entra para hacer una oferta",
+  "New offer created": "¡Enhorabuena! Has realizado una oferta.",
   "Created offers": "Ofertas realizadas",
+  "Created offer": "Oferta realizada",
   "Received offers": "Ofertas recibidas",
   "Accept": "Aceptar",
   "Reject": "Rechazar",
   "says": "dice",
   "Due date": "Fecha límite",
-  "No due date": "Sin límite"
+  "No due date": "Sin límite",
+  "Cancel": "Cancelar"
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOfferRequest;
-use App\Http\Requests\UpdateOfferRequest;
 use Illuminate\Http\Request;
 use App\Models\Offer;
+use App\Models\Advert;
 
 class OfferController extends Controller
 {
@@ -16,16 +16,6 @@ class OfferController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @para
@@ -33,9 +23,18 @@ class OfferController extends Controller
      */
     public function create(Request $request)
     {
-        $advert_id = $request->advert_id;
+        $advert = Advert::find($request->advert_id);
 
-        return view('offers.create', ['advert_id' => $advert_id]);
+        // Check whether the authenticated user has already an offer on this advert.
+        // If so, then go to advert details page. Otherwise go directly to create offer page.
+        $offer = $advert->offers()
+            ->where('user_id', $request->user()->id)
+            ->first();
+
+        if ($offer)
+            return redirect()->route('advert.show', $advert->id);
+        else
+            return view('offers.create', ['advert' => $advert]);
     }
 
     /**
@@ -51,62 +50,40 @@ class OfferController extends Controller
 
         $offer = Offer::create($data);
 
-        return redirect()->route('offer.show', $offer->id)
+        return redirect()->route('advert.show', $offer->advert->id)
             ->with('success', __('New offer created'));
     }
 
     /**
-     * Display the specified resource.
+     * Cancel the specified resource from storage.
      *
      * @param  \App\Models\Offer  $offer
      * @return \Illuminate\Http\Response
      */
-    public function show(Offer $offer)
-    {
-        return view('offers.show', ['offer' => $offer]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Offer $offer)
+    public function cancel(Offer $offer)
     {
         //
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateOfferRequest  $request
-     * @param  \App\Models\Offer  $offer
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateOfferRequest $request, Offer $offer)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * Accept the specified resource from storage.
      *
      * @param  \App\Models\Offer  $offer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Offer $offer)
-    {
-        //
-    }
-
     public function accept(Offer $offer)
     {
-        # code...
+        //
     }
 
+    /**
+     * Reject the specified resource from storage.
+     *
+     * @param  \App\Models\Offer  $offer
+     * @return \Illuminate\Http\Response
+     */
     public function reject(Offer $offer)
     {
-        # code...
+        //
     }
 }

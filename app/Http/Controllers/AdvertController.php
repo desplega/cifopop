@@ -6,7 +6,7 @@ use App\Http\Requests\StoreAdvertRequest;
 use App\Http\Requests\UpdateAdvertRequest;
 use Illuminate\Http\Request;
 use App\Models\Advert;
-use Illuminate\Support\Facades\DB;
+use App\Models\Offer;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
@@ -30,7 +30,7 @@ class AdvertController extends Controller
     public function index()
     {
         $adverts = Advert::orderBy('created_at', 'DESC')->paginate(10);
-        $deleted_adverts = Advert::orderBy('created_at', 'DESC')->withTrashed()->paginate(10);
+        $deleted_adverts = Advert::orderBy('created_at', 'DESC')->onlyTrashed()->get();
 
         Session::put('returnTo', 'advert.index'); // When an advert is deleted we'll come back here
 
@@ -79,18 +79,27 @@ class AdvertController extends Controller
      * @param  Advert  $advert
      * @return \Illuminate\Http\Response
      */
-    public function show(Advert $advert)
+    public function show(Request $request, Advert $advert)
     {
-        $received_offers = DB::table('offers')
+        $offer = new Offer();
+
+        $received_offers = $offer
             ->leftJoin('adverts', 'adverts.id', '=', 'offers.advert_id')
             ->leftJoin('users', 'users.id', '=', 'offers.user_id')
             ->select('offers.*', 'users.name as user_name', 'adverts.title', 'adverts.price')
             ->where('adverts.id', $advert->id)
             ->get();
 
+        $created_offer = $advert->offers()
+            ->leftJoin('adverts', 'adverts.id', '=', 'offers.advert_id')
+            ->select('offers.*')
+            ->where('offers.user_id', $request->user()?->id)
+            ->first();
+
         return view('adverts.show', [
             'advert' => $advert,
             'received_offers' => $received_offers,
+            'created_offer' => $created_offer,
         ]);
     }
 
