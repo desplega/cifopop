@@ -128,5 +128,7 @@
   "No due date": "Sin límite",
   "Cancel": "Cancelar",
   "Accepted": "Aceptada",
-  "Rejected": "Rechazada"
+  "Rejected": "Rechazada",
+  "Sold": "Vendido",
+  "Sold on": "Vendido el"
 }

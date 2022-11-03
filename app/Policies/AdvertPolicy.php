@@ -53,7 +53,8 @@ class AdvertPolicy
      */
     public function update(User $user, Advert $advert)
     {
-        return $user->isAdmin() || $user->isEditor() || ($user->id === $advert->user_id);
+        return ($user->isAdmin() || $user->isEditor() || ($user->id === $advert->user_id))
+            && !$advert->sold();
     }
 
     /**

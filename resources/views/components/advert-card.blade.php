@@ -38,9 +38,18 @@
                 {{ $advert->description }}</p>
             <div class="text-4xl text-gray-600 text-center font-bold my-4">
                 {{ str_replace('.', ',', $advert->price) }} €</div>
-            <a href="{{ route('advert.show', $advert->id) }}" class="flex items-center justify-end mt-4">
-                <x-primary-button type="button">{{ __('More...') }}</x-primary-button>
-            </a>
+            @if ($advert->sold())
+                <div class="flex justify-end">
+                    <div
+                        class="px-4 py-2 bg-green-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest">
+                        {{ __('Sold') }}
+                    </div>
+                </div>
+            @else
+                <a href="{{ route('advert.show', $advert->id) }}" class="flex items-center justify-end mt-4">
+                    <x-primary-button type="button">{{ __('More...') }}</x-primary-button>
+                </a>
+            @endif
         </div>
     </div>
 </div>

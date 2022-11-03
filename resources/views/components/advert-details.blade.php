@@ -38,19 +38,31 @@
     </p>
     <div class="text-4xl text-gray-600 text-center font-bold my-4">{{ str_replace('.', ',', $advert->price) }} €
     </div>
-    <a href="{{ route('offer.create') . '?advert_id=' . $advert->id }}" class="items-center text-right mt-4">
-        @auth
-            @if (Auth::user()->id != $advert->user->id && Auth::user()->getOffer($advert->id) == null && !strpos(url()->current(), 'offer'))
+    <p class="font-normal text-gray-500 mb-3 dark:text-gray-500">
+        <b>{{ __('Sold on') }}</b> {{ ': ' . Custom::formatDate('es', $advert->sold()) }}
+    </p>
+    @if ($advert->sold())
+        <div class="flex justify-end">
+            <div class="px-4 py-2 bg-green-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest">
+                {{ __('Sold') }}</div>
+        </div>
+    @else
+        <a href="{{ route('offer.create') . '?advert_id=' . $advert->id }}" class="items-center text-right mt-4">
+            @auth
+                @if (Auth::user()->id != $advert->user->id &&
+                    Auth::user()->getOffer($advert->id) == null &&
+                    !strpos(url()->current(), 'offer'))
+                    <span class="block">
+                        <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
+                    </span>
+                @endif
+            @endauth
+            @guest
+                <p class="mb-2">{{ __('Log in to make an offer') }}</p>
                 <span class="block">
-                    <x-primary-button type="button">{{ __('Make offer') }}</x-primary-button>
+                    <x-primary-button type="button">{{ __('Log in') }}</x-primary-button>
                 </span>
-            @endif
-        @endauth
-        @guest
-            <p class="mb-2">{{ __('Log in to make an offer') }}</p>
-            <span class="block">
-                <x-primary-button type="button">{{ __('Log in') }}</x-primary-button>
-            </span>
-        @endguest
-    </a>
+            @endguest
+        </a>
+    @endif
 </div>

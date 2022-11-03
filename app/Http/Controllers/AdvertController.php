@@ -182,6 +182,11 @@ class AdvertController extends Controller
 
         $advert->delete();
 
+        // Delete all offers related to the advert
+        foreach ($advert->offers as $offer) {
+            $offer->delete();
+        }
+
         $redirect = Session::has('returnTo') ?
             redirect()->route(Session::get('returnTo')) :
             redirect()->route('advert.index');
