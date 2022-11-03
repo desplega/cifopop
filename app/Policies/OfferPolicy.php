@@ -55,7 +55,8 @@ class OfferPolicy
      */
     public function accept(User $user, Offer $offer)
     {
-        return $user->id === $offer->advert->user->id;    }
+        return $user->id === $offer->advert->user->id;
+    }
 
     /**
      * Determine whether the user can reject the model.

@@ -31,18 +31,14 @@
                         class="px-4 py-2 bg-red-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest">
                         {{ __('Rejected') }}</div>
                 @else
-                    @can('accept', $offer)
-                        <a class="m-2" href="{{ route('offer.accept', $offer->id) }}"
-                            class="flex items-center justify-end mt-4">
-                            <x-primary-button type="button">{{ __('Accept') }}</x-primary-button>
-                        </a>
-                    @endcan
-                    @can('reject', $offer)
-                        <a class="m-2" href="{{ route('offer.reject', $offer->id) }}"
-                            class="flex items-center justify-end mt-4">
-                            <x-primary-button type="button">{{ __('Reject') }}</x-primary-button>
-                        </a>
-                    @endcan
+                    <a class="m-2" href="{{ route('offer.accept', $offer->id) }}"
+                        class="flex items-center justify-end mt-4">
+                        <x-primary-button type="button">{{ __('Accept') }}</x-primary-button>
+                    </a>
+                    <a class="m-2" href="{{ route('offer.reject', $offer->id) }}"
+                        class="flex items-center justify-end mt-4">
+                        <x-primary-button type="button">{{ __('Reject') }}</x-primary-button>
+                    </a>
                 @endif
             </div>
         </div>
