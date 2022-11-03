@@ -38,12 +38,12 @@
     </p>
     <div class="text-4xl text-gray-600 text-center font-bold my-4">{{ str_replace('.', ',', $advert->price) }} €
     </div>
-    <p class="font-normal text-gray-500 mb-3 dark:text-gray-500">
-        <b>{{ __('Sold on') }}</b> {{ ': ' . Custom::formatDate('es', $advert->sold()) }}
-    </p>
     @if ($advert->sold())
-        <div class="flex justify-end">
-            <div class="px-4 py-2 bg-green-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest">
+        <div class="items-center text-right mt-4">
+            <p class="text-gray-500 mb-2">
+                {{ __('Sold on') . Custom::formatDate('es', $advert->sold()) }}
+            </p>
+            <div class="inline-flex px-4 py-2 bg-green-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest">
                 {{ __('Sold') }}</div>
         </div>
     @else

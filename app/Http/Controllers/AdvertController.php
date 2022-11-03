@@ -182,9 +182,13 @@ class AdvertController extends Controller
 
         $advert->delete();
 
-        // Delete all offers related to the advert
-        foreach ($advert->offers as $offer) {
-            $offer->delete();
+        // Reject all offers related to the advert if not sold
+        if (!$advert->sold()) {
+            $data = [];
+            $data['rejected'] = date('Y-m-d H:i:s');
+            foreach ($advert->offers as $offer) {
+                $offer->update($data);
+            }
         }
 
         $redirect = Session::has('returnTo') ?

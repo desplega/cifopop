@@ -23,7 +23,7 @@ class Advert extends Model
         return $this->hasMany(Offer::class);
     }
 
-    public function sold(): string
+    public function sold(): mixed
     {
         foreach($this->offers as $offer) {
             if ($offer->accepted)
