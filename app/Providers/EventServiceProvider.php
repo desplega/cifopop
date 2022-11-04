@@ -10,6 +10,8 @@ use App\Events\AdvertDeleted;
 use App\Listeners\RejectOffersNotification;
 use App\Events\AdvertCreated;
 use App\Listeners\SendEmailAdvertCreatedNotification;
+use App\Events\OfferCreated;
+use App\Listeners\SendEmailOfferCreatedNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AdvertCreated::class => [
             SendEmailAdvertCreatedNotification::class,
+        ],
+        OfferCreated::class => [
+            SendEmailOfferCreatedNotification::class,
         ],
     ];
 

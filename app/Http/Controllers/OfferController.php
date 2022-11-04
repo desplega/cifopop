@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOfferRequest;
 use Illuminate\Http\Request;
 use App\Models\Offer;
 use App\Models\Advert;
+use App\Events\OfferCreated;
 
 class OfferController extends Controller
 {
@@ -52,6 +53,9 @@ class OfferController extends Controller
 
         $offer = Offer::create($data);
 
+        // Event to notify listeners about offer creation
+        OfferCreated::dispatch($offer, $request->user());
+
         return redirect()->route('advert.show', $offer->advert->id)
             ->with('success', __('New offer created'));
     }
@@ -88,7 +92,7 @@ class OfferController extends Controller
         //\Illuminate\Support\Facades\DB::enableQueryLog();
         $offers = $offer->advert->offers()->where('id', '!=', $offer->id)->get();
         //dd(\Illuminate\Support\Facades\DB::getQueryLog());
-        foreach($offers as $o) {
+        foreach ($offers as $o) {
             $o->update($data);
         }
 
