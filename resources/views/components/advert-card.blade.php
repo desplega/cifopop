@@ -37,7 +37,7 @@
             <p class="h-12 overflow-hidden font-normal text-gray-700 mb-3 dark:text-gray-400">
                 {{ $advert->description }}</p>
             <div class="text-4xl text-gray-600 text-center font-bold my-4">
-                {{ str_replace('.', ',', $advert->price) }} €</div>
+                {{ number_format((float)$advert->price, 2, ',', '') }} €</div>
             @if ($advert->sold())
                 <div class="flex justify-end">
                     <div

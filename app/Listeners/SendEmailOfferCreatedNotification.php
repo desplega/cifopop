@@ -24,7 +24,7 @@ class SendEmailOfferCreatedNotification
     /**
      * Handle the event.
      *
-     * @param  \App\Events\AdvertCreated  $event
+     * @param  \App\Events\OfferCreated  $event
      * @return void
      */
     public function handle(OfferCreated $event)
@@ -37,8 +37,8 @@ class SendEmailOfferCreatedNotification
         $msg->subject = __('New offer created');
         $msg->name = $advert_user->name;
         $msg->email = $advert_user->email;
-        $msg->message = __('Advert details') . ': ' . $event->offer->advert->title . ' (' . $event->offer->advert->price . ' €) ---> ';
-        $msg->message .= __('Offer amount') . ': ' . str_replace('.', ',', $event->offer->amount) . ' €';
+        $msg->message = __('Advert details') . ': ' . $event->offer->advert->title . ' (' . number_format((float)$event->offer->advert->price, 2, ',', '') . ' €) ---> ';
+        $msg->message .= __('Offer amount') . ': ' . number_format((float)$event->offer->amount, 2, ',', '') . ' €';
 
         Mail::to($event->user->email)->send(new AdvertOfferEmail($msg));
 

@@ -12,9 +12,9 @@
                 </b> ({{ $offer->user_name }})
             </p>
             <p class="font-bold text-gray-700 text-center dark:text-gray-400">
-                {{ str_replace('.', ',', $offer->price) }} €</p>
+                {{ number_format((float)$offer->price, 2, ',', '') }} €</p>
             <div class="text-4xl text-gray-600 text-center font-bold my-4">
-                {{ str_replace('.', ',', $offer->amount) }} €</div>
+                {{ number_format((float)$offer->amount, 2, ',', '') }} €</div>
             <p class="font-normal text-gray-700 dark:text-gray-400">
                 <b>{{ __('Message') }}: </b>{{ $offer->text }}
             </p>
