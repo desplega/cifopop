@@ -10,6 +10,7 @@ use App\Models\Offer;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
+use App\Events\AdvertDeleted;
 
 class AdvertController extends Controller
 {
@@ -182,14 +183,8 @@ class AdvertController extends Controller
 
         $advert->delete();
 
-        // Reject all offers related to the advert if not sold
-        if (!$advert->sold()) {
-            $data = [];
-            $data['rejected'] = date('Y-m-d H:i:s');
-            foreach ($advert->offers as $offer) {
-                $offer->update($data);
-            }
-        }
+        // Event to notify an advert has been deleted
+        AdvertDeleted::dispatch($advert);
 
         $redirect = Session::has('returnTo') ?
             redirect()->route(Session::get('returnTo')) :
