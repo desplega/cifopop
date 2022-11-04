@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Events\AdvertDeleted;
 use App\Events\AdvertCreated;
+use App\Events\AdvertPurged;
 
 class AdvertController extends Controller
 {
@@ -98,7 +99,7 @@ class AdvertController extends Controller
         $created_offer = $advert->offers()
             ->leftJoin('adverts', 'adverts.id', '=', 'offers.advert_id')
             ->select('offers.*')
-            ->where('offers.user_id', $request->user()?->id)
+            ->where('offers.user_id', $request->user()?->id) // Added ?-> in case user is not logged in
             ->first();
 
         return view('adverts.show', [
@@ -230,10 +231,14 @@ class AdvertController extends Controller
         if ($request->user()->cannot('delete', $advert))
             abort(403, __('You can only delete your own adverts.'));
 
+        // Event to notify is going to be purged, so that all referred offers will be deleted
+        AdvertPurged::dispatch($advert);
+
         if ($advert->forceDelete() && $advert->image) {
             $path = config('filesystems.advertImagesPath') . '/' . $advert->image;
             Storage::delete($path);
         }
+
 
         return redirect('home')
             ->with('success', __('Advert ref. :advert has been permanently deleted.', ['advert' => $advert->id]));

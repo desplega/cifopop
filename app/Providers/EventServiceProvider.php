@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Events\AdvertDeleted;
 use App\Listeners\RejectOffersNotification;
+use App\Events\AdvertPurged;
+use App\Listeners\OrphanOffersNotification;
 use App\Events\AdvertCreated;
 use App\Listeners\SendEmailAdvertCreatedNotification;
 use App\Events\OfferCreated;
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AdvertDeleted::class => [
             RejectOffersNotification::class,
+        ],
+        AdvertPurged::class => [
+            OrphanOffersNotification::class,
         ],
         AdvertCreated::class => [
             SendEmailAdvertCreatedNotification::class,

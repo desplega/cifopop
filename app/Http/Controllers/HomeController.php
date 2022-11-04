@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         $adverts = $request->user()
             ->adverts()
-            ->orderBy('created_at', 'DESC')
+            ->latest()
             ->paginate(config('pagination.bikes', 10));
 
         $deleted_adverts = $request->user()
@@ -25,7 +25,7 @@ class HomeController extends Controller
             ->leftJoin('adverts', 'adverts.id', '=', 'offers.advert_id')
             ->leftJoin('users', 'users.id', '=', 'adverts.user_id')
             ->select('offers.*', 'users.name as user_name', 'adverts.title', 'adverts.price')
-            ->orderBy('created_at', 'DESC')
+            ->latest()
             ->get();
 
         $received_offers = DB::table('offers')
