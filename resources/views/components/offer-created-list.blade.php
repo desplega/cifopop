@@ -24,12 +24,22 @@
             </p>
             <!-- Actions -->
             <div class="flex justify-end">
-                @can('cancel', $offer)
-                    <a class="m-2" href="{{ route('offer.cancel', $offer->id) }}"
-                        class="flex items-center justify-end mt-4">
-                        <x-primary-button type="button">{{ __('Cancel') }}</x-primary-button>
-                    </a>
-                @endcan
+                @if ($offer->accepted)
+                    <div
+                        class="px-4 py-2 bg-green-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest">
+                        {{ __('Accepted') }}</div>
+                @elseif ($offer->rejected)
+                    <div
+                        class="px-4 py-2 bg-red-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest">
+                        {{ __('Rejected') }}</div>
+                @else
+                    @can('cancel', $offer)
+                        <a class="m-2" href="{{ route('offer.cancel', $offer->id) }}"
+                            class="flex items-center justify-end mt-4">
+                            <x-primary-button type="button">{{ __('Cancel') }}</x-primary-button>
+                        </a>
+                    @endcan
+                @endif
             </div>
         </div>
     </div>
