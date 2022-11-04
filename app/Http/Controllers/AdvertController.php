@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use App\Events\AdvertDeleted;
+use App\Events\AdvertCreated;
 
 class AdvertController extends Controller
 {
@@ -69,6 +70,9 @@ class AdvertController extends Controller
         }
 
         $advert = Advert::create($data);
+
+        // Event to notify listeners about advert creation
+        AdvertCreated::dispatch($advert, $request->user());
 
         return redirect()->route('advert.show', $advert->id)
             ->with('success', __('New advert created'));

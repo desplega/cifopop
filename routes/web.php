@@ -4,7 +4,7 @@ use App\Http\Controllers\AdvertController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Emails\ContactController;
 use App\Http\Controllers\OfferController;
 
 /*
