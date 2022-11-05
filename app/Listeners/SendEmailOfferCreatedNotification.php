@@ -9,7 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 
-class SendEmailOfferCreatedNotification
+class SendEmailOfferCreatedNotification implements ShouldQueue
 {
     /**
      * Create the event listener.
