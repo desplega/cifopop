@@ -24,6 +24,6 @@ class Custom
                 break;
         }
 
-        return $date_str;
+        return $date_str; // Return string
     }
 }
