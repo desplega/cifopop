@@ -26,3 +26,4 @@ In order pictures in storage/public can be accesses it is required to create a s
 ```
 php artisan storage:link
 ```
+**Note:** Ensure npm version is v16 or above.
