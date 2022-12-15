@@ -11,10 +11,8 @@ Create the `.env` file with your project, database, and smtp own configuration. 
 ```
 php artisan key:generate
 ```
-Install Breeze
-```
-php artizan breeze:install
-```
+**Note:** Breeze is already installed, hence it is not required to install it (~~php artizan breeze:install~~).
+
 Now you can run the migrations
 ```
 php artisan migrate
@@ -24,3 +22,8 @@ Finally run Vite server to dynamically generate new styles
 npm install
 npm run dev
 ```
+In order pictures in storage/public can be accesses it is required to create a sym link:
+```
+php artisan storage:link
+```
+**Note:** Ensure node version is v16 or above.
